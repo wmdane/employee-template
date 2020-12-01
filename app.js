@@ -17,28 +17,88 @@ function init() {
   inquirer.prompt()[
     {
       type: "list",
-      message: "What is the employees role?",
+      message: "What is the employee's role?",
       name: "role",
       choices: ["Manager", "Engineer", "Intern"],
     }
-  ];
+  ].then((response) => {
+    if (`${response.role}` === "Manager") {
+      addManager();
+    }
+    if (`${response.role}` === "Engineer") {
+      addEngineer();
+    }
+    if (`${response.role}` === "Intern") {
+      addIntern();
+    }
+  });
 }
 function addManager() {
   inquirer.prompt()[
     ({
       type: "input",
-      message: "What is the employees name?",
+      message: "What is the employee's name?",
       name: "name",
     },
     {
       type: "input",
-      message: "What is the employees ID?",
+      message: "What is the employee's ID?",
       name: "id",
     },
     {
       type: "input",
-      message: "What is the employees email address?",
+      message: "What is the employee's email address?",
       name: "email",
+    },
+    {
+      type: "input",
+      message: "What is the employee's office number?",
+    })
+  ].then();
+}
+function addEngineer() {
+  inquirer.prompt()[
+    ({
+      type: "input",
+      message: "What is the employee's name?",
+      name: "name",
+    },
+    {
+      type: "input",
+      message: "What is the employee's ID?",
+      name: "id",
+    },
+    {
+      type: "input",
+      message: "What is the employee's email address?",
+      name: "email",
+    },
+    {
+      type: "input",
+      message: "What is the employee's Github username?",
+    })
+  ].then();
+}
+function addIntern() {
+  inquirer.prompt()[
+    ({
+      type: "input",
+      message: "What is the employee's name?",
+      name: "name",
+    },
+    {
+      type: "input",
+      message: "What is the employee's ID?",
+      name: "id",
+    },
+    {
+      type: "input",
+      message: "What is the employee's email address?",
+      name: "email",
+    },
+    {
+      type: "input",
+      message: "What school is the employee currently attending?",
     })
   ].then();
 }
