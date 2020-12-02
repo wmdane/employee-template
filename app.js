@@ -60,15 +60,16 @@ function addManager() {
         name: "officeNumber",
       },
       {
-        type: "input",
+        type: "list",
         message: "Would you like to add another team member?",
         name: "add",
+        choices: ["Yes", "No"],
       },
     ])
     .then((manager) => {
       const mng = new Manager(manager.name, manager.id, manager.email, manager.officeNumber);
-      console.log(mng);
-      if (manager.add === true) {
+
+      if (manager.add === "Yes") {
         init();
       }
     });
@@ -98,15 +99,16 @@ function addEngineer() {
         name: "github",
       },
       {
-        type: "input",
+        type: "list",
         message: "Would you like to add another team member?",
         name: "add",
+        choices: ["Yes", "No"],
       },
     ])
     .then((engineer) => {
       const eng = new Engineer(engineer.name, engineer.id, engineer.email, engineer.github);
-      console.log(eng);
-      if (engineer.add === true) {
+
+      if (engineer.add === "Yes") {
         init();
       }
     });
@@ -136,15 +138,16 @@ function addIntern() {
         name: "school",
       },
       {
-        type: "input",
+        type: "list",
         message: "Would you like to add another team member?",
         name: "add",
+        choices: ["Yes", "No"],
       },
     ])
     .then((intern) => {
       const int = new Intern(intern.name, intern.id, intern.email, intern.school);
-      console.log(int);
-      if (intern.add === true) {
+
+      if (intern.add === "Yes") {
         init();
       }
     });
