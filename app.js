@@ -10,9 +10,13 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+//array to push employee objects into to be rendered in the html
+const teamMembers = [];
+
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
+//determines which set of questions is asked
 function init() {
   inquirer
     .prompt([
@@ -36,6 +40,7 @@ function init() {
     });
 }
 
+//function to ask questions if the answer in init() was manager
 function addManager() {
   inquirer
     .prompt([
@@ -66,15 +71,21 @@ function addManager() {
         choices: ["Yes", "No"],
       },
     ])
+    //fills in cooresponding class
     .then((manager) => {
       const mng = new Manager(manager.name, manager.id, manager.email, manager.officeNumber);
 
+      teamMembers.push(mng);
+
       if (manager.add === "Yes") {
         init();
+      } else {
+        renderTeam();
       }
     });
 }
 
+//function to ask questions if the answer in init() was engineer
 function addEngineer() {
   inquirer
     .prompt([
@@ -105,15 +116,21 @@ function addEngineer() {
         choices: ["Yes", "No"],
       },
     ])
+    //fills in cooresponding class
     .then((engineer) => {
       const eng = new Engineer(engineer.name, engineer.id, engineer.email, engineer.github);
 
+      teamMembers.push(eng);
+
       if (engineer.add === "Yes") {
         init();
+      } else {
+        renderTeam();
       }
     });
 }
 
+//function to ask questions if the answer in init() was intern
 function addIntern() {
   inquirer
     .prompt([
@@ -144,15 +161,28 @@ function addIntern() {
         choices: ["Yes", "No"],
       },
     ])
+    //fills in cooresponding class
     .then((intern) => {
       const int = new Intern(intern.name, intern.id, intern.email, intern.school);
 
+      teamMembers.push(int);
+
       if (intern.add === "Yes") {
         init();
+      } else {
+        renderTeam();
       }
     });
 }
 init();
+
+function renderTeam() {
+  fs.writeFile(outputPath, render(teamMembers), function (err) {
+    if (err) return console.log(err);
+    console.log("Success!");
+  });
+}
+
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
